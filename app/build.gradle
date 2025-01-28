@@ -5,7 +5,15 @@ plugins {
 android {
     namespace 'fun.android.notepad'
     compileSdk 35
-
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/window',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
     defaultConfig {
         applicationId "fun.android.notepad"
         minSdk 26
@@ -23,8 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_23
+        targetCompatibility JavaVersion.VERSION_23
     }
 }
 
@@ -37,4 +45,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    implementation 'com.github.getActivity:XXPermissions:16.0'
 }

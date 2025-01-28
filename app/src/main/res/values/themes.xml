@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.FunNotepad" parent="Base.Theme.FunNotepad" />
+    <style name="AlertDialog_Loading" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>
