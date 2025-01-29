@@ -48,4 +48,5 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     implementation 'com.github.getActivity:XXPermissions:16.0'
+    implementation 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
 }

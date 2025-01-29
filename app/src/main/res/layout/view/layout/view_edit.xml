@@ -55,11 +55,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_search"
+            android:id="@+id/button_style"
             android:layout_margin="10dp"
             android:stateListAnimator="@null"
             android:background="@drawable/button_event_back_tran"
-            android:text="搜索"
+            android:text="样式"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>

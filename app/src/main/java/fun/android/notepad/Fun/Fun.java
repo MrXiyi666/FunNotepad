@@ -15,6 +15,10 @@ import android.widget.TextView;
 import fun.android.notepad.App;
 import fun.android.notepad.R;
 import androidx.appcompat.app.AlertDialog;
+
+import org.mozilla.universalchardet.UniversalDetector;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 
 public class Fun {
@@ -100,5 +104,35 @@ public class Fun {
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
         return (int)(dp * density);
+    }
+
+    public static String 提取后缀(String fileName){
+        int dotIndex = fileName.lastIndexOf('.');
+        boolean hasExtension = dotIndex > 0 && dotIndex < fileName.length() - 1;
+        if (hasExtension) {
+            return fileName.substring(dotIndex);
+        } else {
+            return "";
+        }
+    }
+
+    public static String 检测编码(byte[] bytes) {
+        UniversalDetector detector = new UniversalDetector(null);
+        detector.handleData(bytes, 0, bytes.length);
+        detector.dataEnd();
+        String encoding = detector.getDetectedCharset();
+        detector.reset();
+        return encoding+"";
+    }
+
+    public static String 转换编码(String data, String encode){
+        byte[] bytes;
+        try {
+            bytes = data.getBytes(encode);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return new String(bytes);
     }
 }

@@ -10,43 +10,38 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
-import java.io.File;
+
 import java.util.Objects;
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
-import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.R;
-import fun.android.notepad.View.View_Edit;
 
-public class Window_New_File {
-
-    public Window_New_File(){
+public class Window_En_Code {
+    public Window_En_Code(EditText edit_view){
         AlertDialog dialog = new AlertDialog.Builder(App.activity,  R.style.AlertDialog_Loading).create();
-        View view = View.inflate(App.activity, R.layout.window_new_file_view, null);
+        View view = View.inflate(App.activity, R.layout.window_encode, null);
         ImageView return_icon = view.findViewById(R.id.return_icon);
-        EditText edit_view = view.findViewById(R.id.edit_view);
-        AppCompatButton button_open_file = view.findViewById(R.id.button_open_file);
-
-        button_open_file.setOnClickListener(V->{
-            App.FileName = edit_view.getText().toString();
-            if(App.FileName.isEmpty()){
-                return;
-            }
-            if(Fun.提取后缀(App.FileName).isEmpty()){
-                App.FileName = App.FileName + ".txt";
-            }
-            App.uri = null;
-            App.Txt_Data = "";
-            if(new File(App.file_path + App.FileName).exists()){
-                App.Txt_Data = FunFile.读取文件(App.FileName);
-            }
-            App.relativeLayout.removeAllViews();
-            App.view_main = new View_Edit();
-            App.relativeLayout.addView(App.view_main.getView());
+        AppCompatButton button_utf8 = view.findViewById(R.id.button_utf8);
+        AppCompatButton button_gb2312 = view.findViewById(R.id.button_gb2312);
+        AppCompatButton button_ascii = view.findViewById(R.id.button_ascii);
+        return_icon.setOnClickListener(V-> dialog.dismiss());
+        App.Txt_Data = edit_view.getText().toString();
+        button_utf8.setOnClickListener(V->{
+            App.Txt_Data = Fun.转换编码(App.Txt_Data, "UTF-8");
+            edit_view.setText(App.Txt_Data);
             dialog.dismiss();
         });
 
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        button_gb2312.setOnClickListener(V->{
+            App.Txt_Data = Fun.转换编码(App.Txt_Data, "GB2312");
+            edit_view.setText(App.Txt_Data);
+            dialog.dismiss();
+        });
+        button_ascii.setOnClickListener(V->{
+            App.Txt_Data = Fun.转换编码(App.Txt_Data, "ASCII");
+            edit_view.setText(App.Txt_Data);
+            dialog.dismiss();
+        });
         dialog.setView(view);
         dialog.setCancelable(false);
         Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

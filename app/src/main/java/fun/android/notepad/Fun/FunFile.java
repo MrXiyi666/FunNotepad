@@ -16,14 +16,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import fun.android.notepad.App;
 
 public class FunFile {
     public static boolean 写入文件(String path, String data){
         try {
             FileOutputStream fos = new FileOutputStream(App.file_path + path, false);
-            OutputStreamWriter oStreamWriter = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+            OutputStreamWriter oStreamWriter = new OutputStreamWriter(fos, App.encode);
             oStreamWriter.write(data);
             oStreamWriter.close();
             fos.close();
@@ -36,8 +35,12 @@ public class FunFile {
     }
 
     public static boolean 写入文件(Uri uri, String data){
-        try (OutputStream outputStream = App.activity.getContentResolver().openOutputStream(uri, "wt")){
-            outputStream.write(data.getBytes());
+        try (OutputStream outputStream = App.activity.getContentResolver().openOutputStream(uri, "wt");
+             OutputStreamWriter writer = new OutputStreamWriter(outputStream, App.encode)){
+            writer.write(data);
+            writer.flush();
+            writer.close();
+            assert outputStream != null;
             outputStream.flush();
             outputStream.close();
             return true;
@@ -72,7 +75,7 @@ public class FunFile {
             return sb +"";
         }
         try {
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), StandardCharsets.UTF_8);
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), App.encode);
             BufferedReader br = new BufferedReader(isr);
             String line;
             while ((line = br.readLine()) != null) {
@@ -89,7 +92,7 @@ public class FunFile {
     public static String ReadURI(Uri uri) {
         try {
             InputStream inputStream = App.activity.getContentResolver().openInputStream(uri);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, App.encode));
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

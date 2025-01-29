@@ -33,8 +33,9 @@ public class App extends Application {
     public static View_Main view_main;
     public static ActivityResultLauncher<String[]> open_file_Launcher;
     public static String Txt_Data;
-    public static String FileName = "";
-    public static Uri uri;
+    public static String FileName = null;
+    public static Uri uri=null;
+    public static String encode = "utf8";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -62,6 +63,8 @@ public class App extends Application {
         relativeLayout = activity.findViewById(R.id.main);
         view_main = new View_Menu();
         relativeLayout.addView(view_main.getView());
-
+        uri=null;
+        FileName = null;
+        Txt_Data = null;
     }
 }

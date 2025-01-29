@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                // 处理返回事件
-                //Toast.makeText(MainActivity.this, "返回键被点击了", Toast.LENGTH_SHORT).show();
                 if(App.view_main instanceof View_Edit){
+                    App.uri = null;
+                    App.Txt_Data = "";
+                    App.FileName = null;
                     App.relativeLayout.removeAllViews();
                     App.view_main = new View_Menu();
                     App.relativeLayout.addView(App.view_main.getView());
