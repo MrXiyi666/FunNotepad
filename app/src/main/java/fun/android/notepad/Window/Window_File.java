@@ -6,13 +6,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 
-import java.io.File;
 import java.util.Objects;
 
 import fun.android.notepad.App;
@@ -22,33 +20,37 @@ import fun.android.notepad.R;
 import fun.android.notepad.View.View_Edit;
 import fun.android.notepad.View.View_Menu;
 
-public class Window_New_File {
-
-    public Window_New_File(){
+public class Window_File {
+    public Window_File(){
         AlertDialog dialog = new AlertDialog.Builder(App.activity,  R.style.AlertDialog_Loading).create();
-        View view = View.inflate(App.activity, R.layout.window_new_file_view, null);
+        View view = View.inflate(App.activity, R.layout.window_file_view, null);
         ImageView return_icon = view.findViewById(R.id.return_icon);
-        EditText edit_view = view.findViewById(R.id.edit_view);
-        AppCompatButton button_open_file = view.findViewById(R.id.button_open_file);
-
-        button_open_file.setOnClickListener(V->{
-
-            App.FileName = edit_view.getText().toString() + ".txt";
-            if(App.FileName.equals(".txt")){
-                return;
-            }
+        AppCompatButton button_save = view.findViewById(R.id.button_save);
+        AppCompatButton button_close = view.findViewById(R.id.button_close);
+        AppCompatButton button_save_or_close = view.findViewById(R.id.button_save_or_close);
+        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        button_save.setOnClickListener(V->{
+            FunFile.保存文件();
+        });
+        button_close.setOnClickListener(V->{
             App.uri = null;
-            App.Txt_Data = "";
-            if(new File(App.file_path + App.FileName).exists()){
-                App.Txt_Data = FunFile.读取文件(App.FileName);
-            }
+            App.Txt_Data = null;
+            App.FileName = null;
             App.relativeLayout.removeAllViews();
-            App.view_main = new View_Edit();
+            App.view_main = new View_Menu();
             App.relativeLayout.addView(App.view_main.getView());
             dialog.dismiss();
         });
-
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        button_save_or_close.setOnClickListener(V->{
+            FunFile.保存文件();
+            App.uri = null;
+            App.Txt_Data = null;
+            App.FileName = null;
+            App.relativeLayout.removeAllViews();
+            App.view_main = new View_Menu();
+            App.relativeLayout.addView(App.view_main.getView());
+            dialog.dismiss();
+        });
         dialog.setView(view);
         dialog.setCancelable(false);
         Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

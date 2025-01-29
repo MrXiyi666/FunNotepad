@@ -14,7 +14,7 @@ android {
                     'src/main/res'
             ]
         }
-    }
+    }                                   
     defaultConfig {
         applicationId "fun.android.notepad"
         minSdk 26

@@ -7,13 +7,14 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 
 import fun.android.notepad.App;
+import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.R;
 import fun.android.notepad.Window.Window_New_File;
 
 public class View_Menu extends View_Main{
     private TextView top_view;
-    private LinearLayout linear;
-    private AppCompatButton button_new_file;
+    private LinearLayout linear_main, linear;
+    private AppCompatButton button_new_file, button_open;
     public View_Menu(){
         view = View.inflate(App.activity, R.layout.view_menu, null);
         Create();
@@ -24,19 +25,24 @@ public class View_Menu extends View_Main{
     public void Create() {
         super.Create();
         top_view = view.findViewById(R.id.top_view);
+        linear_main = view.findViewById(R.id.linear_main);
         linear = view.findViewById(R.id.linear);
         button_new_file = view.findViewById(R.id.button_new_file);
+        button_open = view.findViewById(R.id.button_open);
     }
 
     @Override
     public void Event() {
         super.Event();
-        top_view.setPadding(0,  0, 0, App.Status_Bar_Height);
-        for(int i=0; i<100; i++){
-            linear.addView(new History_View("文本文档     " + i, linear).getView());
-        }
+        top_view.setPadding(0,  App.Status_Bar_Height, 0, 0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Fun.DPToPX(App.activity, App.App_Width), LinearLayout.LayoutParams.MATCH_PARENT);
+        linear_main.setLayoutParams(params);
         button_new_file.setOnClickListener(V->{
             new Window_New_File();
+        });
+        button_open.setOnClickListener(V->{
+            String[] a = {"text/plain"};
+            App.open_file_Launcher.launch(a);
         });
     }
 

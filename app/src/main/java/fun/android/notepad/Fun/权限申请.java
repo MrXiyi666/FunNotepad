@@ -10,9 +10,6 @@ import java.util.List;
 public class 权限申请 {
     public 权限申请(Activity activity){
         XXPermissions.with(activity)
-                .permission(Permission.READ_MEDIA_IMAGES)
-                .permission(Permission.READ_MEDIA_VIDEO)
-                .permission(Permission.READ_MEDIA_AUDIO)
                 .permission(Permission.MANAGE_EXTERNAL_STORAGE)
                 .request(new OnPermissionCallback() {
 
