@@ -12,7 +12,6 @@ import fun.android.notepad.App;
 
 public class FunFile {
     public static boolean 写入文件(String path, String data){
-
         try {
             FileOutputStream fos = new FileOutputStream(App.file_path + path, false);
             OutputStreamWriter oStreamWriter = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
