@@ -9,6 +9,7 @@
         tools:ignore="ScopedStorage" />
     <application
         android:name=".App"
+        android:enableOnBackInvokedCallback="true"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FunNotepad"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu">
         <!-- 表示当前项目已经适配了分区存储特性 -->
         <meta-data
             android:name="ScopedStorage"

@@ -11,7 +11,7 @@
         android:layout_height="50dp">
         <TextView
             android:layout_centerInParent="true"
-            android:text="编码"
+            android:text="打开编码"
             android:textSize="15sp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -56,10 +56,10 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/button_ascii"
+                android:id="@+id/button_gb2312"
                 android:stateListAnimator="@null"
                 android:background="@drawable/button_event_back_tran"
-                android:text="默认 ASCII"
+                android:text="默认 GB2312"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatButton
@@ -67,10 +67,21 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/button_gb2312"
+                android:id="@+id/button_gbk"
                 android:stateListAnimator="@null"
                 android:background="@drawable/button_event_back_tran"
-                android:text="默认 GB2312"
+                android:text="默认 GBk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/button_ascii"
+                android:stateListAnimator="@null"
+                android:background="@drawable/button_event_back_tran"
+                android:text="默认 ASCII"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

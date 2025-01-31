@@ -31,6 +31,7 @@ public class Window_File {
         return_icon.setOnClickListener(_ -> dialog.dismiss());
         button_save.setOnClickListener(V->{
             FunFile.保存文件();
+            dialog.dismiss();
         });
         button_close.setOnClickListener(V->{
             App.uri = null;

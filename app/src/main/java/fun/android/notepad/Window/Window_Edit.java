@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -25,6 +27,11 @@ public class Window_Edit {
         AppCompatButton button_left = view.findViewById(R.id.button_left);
         AppCompatButton button_center = view.findViewById(R.id.button_center);
         AppCompatButton button_end = view.findViewById(R.id.button_end);
+        AppCompatButton button_v_center = view.findViewById(R.id.button_v_center);
+        AppCompatButton button_h_center = view.findViewById(R.id.button_h_center);
+        AppCompatButton button_add = view.findViewById(R.id.button_add);
+        TextView text_view = view.findViewById(R.id.text_view);
+        AppCompatButton button_minus = view.findViewById(R.id.button_minus);
         return_icon.setOnClickListener(_ -> dialog.dismiss());
         boolean isReadOnly = (
                 !edit_view.isFocusable() &&
@@ -37,6 +44,8 @@ public class Window_Edit {
         }else{
             button_read_only.setText("设为只读");
         }
+        edit_view.setTextSize(App.text_size);
+        text_view.setText(String.valueOf(App.text_size));
         button_read_only.setOnClickListener(V->{
             dialog.dismiss();
             if(isReadOnly){
@@ -57,12 +66,30 @@ public class Window_Edit {
             dialog.dismiss();
         });
         button_center.setOnClickListener(V->{
-            edit_view.setGravity(Gravity.CENTER_HORIZONTAL);
+            edit_view.setGravity(Gravity.CENTER);
             dialog.dismiss();
         });
         button_end.setOnClickListener(V->{
             edit_view.setGravity(Gravity.END);
             dialog.dismiss();
+        });
+        button_v_center.setOnClickListener(V->{
+            edit_view.setGravity(Gravity.CENTER_VERTICAL);
+            dialog.dismiss();
+        });
+        button_h_center.setOnClickListener(V->{
+            edit_view.setGravity(Gravity.CENTER_HORIZONTAL);
+            dialog.dismiss();
+        });
+        button_add.setOnClickListener(V->{
+            App.text_size++;
+            text_view.setText(String.valueOf(App.text_size));
+            edit_view.setTextSize(App.text_size);
+        });
+        button_minus.setOnClickListener(V->{
+            App.text_size--;
+            text_view.setText(String.valueOf(App.text_size));
+            edit_view.setTextSize(App.text_size);
         });
         dialog.setView(view);
         dialog.setCancelable(false);

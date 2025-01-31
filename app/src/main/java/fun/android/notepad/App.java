@@ -36,6 +36,7 @@ public class App extends Application {
     public static String FileName = null;
     public static Uri uri=null;
     public static String encode = "utf8";
+    public static int text_size = 15;
     @Override
     public void onCreate() {
         super.onCreate();

@@ -21,6 +21,7 @@ public class Window_System {
         AppCompatButton button_utf8 = view.findViewById(R.id.button_utf8);
         AppCompatButton button_ascii = view.findViewById(R.id.button_ascii);
         AppCompatButton button_gb2312 = view.findViewById(R.id.button_gb2312);
+        AppCompatButton button_gbk = view.findViewById(R.id.button_gbk);
         return_icon.setOnClickListener(_ -> dialog.dismiss());
 
         button_utf8.setOnClickListener(V->{
@@ -35,6 +36,11 @@ public class Window_System {
 
         button_gb2312.setOnClickListener(V->{
             App.encode = "GB2312";
+            dialog.dismiss();
+        });
+
+        button_gbk.setOnClickListener(V->{
+            App.encode = "GBK";
             dialog.dismiss();
         });
         dialog.setView(view);

@@ -23,6 +23,7 @@ public class Window_En_Code {
         ImageView return_icon = view.findViewById(R.id.return_icon);
         AppCompatButton button_utf8 = view.findViewById(R.id.button_utf8);
         AppCompatButton button_gb2312 = view.findViewById(R.id.button_gb2312);
+        AppCompatButton button_gbk = view.findViewById(R.id.button_gbk);
         AppCompatButton button_ascii = view.findViewById(R.id.button_ascii);
         return_icon.setOnClickListener(V-> dialog.dismiss());
         App.Txt_Data = edit_view.getText().toString();
@@ -37,6 +38,13 @@ public class Window_En_Code {
             edit_view.setText(App.Txt_Data);
             dialog.dismiss();
         });
+
+        button_gbk.setOnClickListener(V->{
+            App.Txt_Data = Fun.转换编码(App.Txt_Data, "GBK");
+            edit_view.setText(App.Txt_Data);
+            dialog.dismiss();
+        });
+
         button_ascii.setOnClickListener(V->{
             App.Txt_Data = Fun.转换编码(App.Txt_Data, "ASCII");
             edit_view.setText(App.Txt_Data);

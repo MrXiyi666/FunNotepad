@@ -11,7 +11,7 @@
         android:layout_height="50dp">
         <TextView
             android:layout_centerInParent="true"
-            android:text="编码"
+            android:text="转换编码"
             android:textSize="15sp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -58,6 +58,16 @@
                 android:stateListAnimator="@null"
                 android:background="@drawable/button_event_back_tran"
                 android:text="GB2312"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/button_gbk"
+                android:stateListAnimator="@null"
+                android:background="@drawable/button_event_back_tran"
+                android:text="GBK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatButton
