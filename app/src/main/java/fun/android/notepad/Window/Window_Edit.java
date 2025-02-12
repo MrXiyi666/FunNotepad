@@ -9,10 +9,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
-
 import java.util.Objects;
 import fun.android.notepad.App;
 import fun.android.notepad.R;
@@ -59,7 +57,6 @@ public class Window_Edit {
             edit_view.setFocusableInTouchMode(false);
             edit_view.setClickable(false);
             edit_view.setCursorVisible(false);
-
         });
         button_left.setOnClickListener(V->{
             edit_view.setGravity(Gravity.START); // 设置文本左对齐
