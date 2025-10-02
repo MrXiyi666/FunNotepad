@@ -28,7 +28,7 @@ public class Window_File {
         AppCompatButton button_save = view.findViewById(R.id.button_save);
         AppCompatButton button_close = view.findViewById(R.id.button_close);
         AppCompatButton button_save_or_close = view.findViewById(R.id.button_save_or_close);
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        return_icon.setOnClickListener(V-> dialog.dismiss());
         button_save.setOnClickListener(V->{
             FunFile.保存文件();
             dialog.dismiss();

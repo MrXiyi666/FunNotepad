@@ -22,7 +22,7 @@ public class Window_System {
         AppCompatButton button_ascii = view.findViewById(R.id.button_ascii);
         AppCompatButton button_gb2312 = view.findViewById(R.id.button_gb2312);
         AppCompatButton button_gbk = view.findViewById(R.id.button_gbk);
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        return_icon.setOnClickListener(V-> dialog.dismiss());
 
         button_utf8.setOnClickListener(V->{
            App.encode = "UTF-8";

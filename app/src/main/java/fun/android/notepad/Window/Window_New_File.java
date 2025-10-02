@@ -46,7 +46,7 @@ public class Window_New_File {
             dialog.dismiss();
         });
 
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        return_icon.setOnClickListener(V-> dialog.dismiss());
         dialog.setView(view);
         dialog.setCancelable(false);
         Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

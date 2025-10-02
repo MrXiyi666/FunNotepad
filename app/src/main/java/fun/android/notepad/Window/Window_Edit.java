@@ -30,7 +30,7 @@ public class Window_Edit {
         AppCompatButton button_add = view.findViewById(R.id.button_add);
         TextView text_view = view.findViewById(R.id.text_view);
         AppCompatButton button_minus = view.findViewById(R.id.button_minus);
-        return_icon.setOnClickListener(_ -> dialog.dismiss());
+        return_icon.setOnClickListener(V -> dialog.dismiss());
         boolean isReadOnly = (
                 !edit_view.isFocusable() &&
                         !edit_view.isFocusableInTouchMode() &&
