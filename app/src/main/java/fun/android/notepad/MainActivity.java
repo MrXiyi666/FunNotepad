@@ -1,19 +1,10 @@
 package fun.android.notepad;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.File;
-
-import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.View.View_Edit;
 import fun.android.notepad.View.View_Menu;
@@ -40,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     App.relativeLayout.addView(App.view_main.getView());
                 }
         );
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+        this.getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if(App.view_main instanceof View_Edit){
@@ -57,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
-        };
-
-// 将回调添加到 Activity 或 Fragment
-        this.getOnBackPressedDispatcher().addCallback(this, callback);
+        });
     }
 
     @Override
