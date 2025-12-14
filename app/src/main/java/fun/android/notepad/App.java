@@ -37,6 +37,7 @@ public class App extends Application {
     public static String text_data = "";
     public static String file_name = "";
     public static String uri="http://mrxiyi.top/FunNotepad/SuiBian/";
+    public static int downloads_index=0;
     public static String encode = "utf8";
     public static int text_size = 15;
     @Override

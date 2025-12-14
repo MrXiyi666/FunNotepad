@@ -1,5 +1,7 @@
 package fun.android.notepad.View;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import java.util.List;
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
+import fun.android.notepad.NetWork.NetWork_FileList;
 import fun.android.notepad.R;
 import fun.android.notepad.Window.Window_New_File;
 import fun.android.notepad.Window.Window_System;
@@ -46,7 +49,7 @@ public class View_Create extends View_Main{
         super.Event();
         top_view.setPadding(0,  App.Status_Bar_Height, 0, 0);
         img_system.setOnClickListener(V->{
-            new Window_System();
+          //  new Window_System();
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Fun.DPToPX(App.activity, App.App_Width), LinearLayout.LayoutParams.MATCH_PARENT);
         linear_main.setLayoutParams(params);
@@ -56,15 +59,39 @@ public class View_Create extends View_Main{
 
         swiperefresh.setOnRefreshListener(() -> {
             swiperefresh.setRefreshing(false);
+            new NetWork_FileList().start(App.uri + "file_list.php");
+
         });
 
 
         List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
-        for(String name : list_file){
-            linear.addView(Fun.getChilde(name), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        for(int i=0; i< list_file.size(); i++){
+            if(i==list_file.size()-1){
+                linear.addView(Fun.getChilde(list_file.get(i), true), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                continue;
+            }
+            linear.addView(Fun.getChilde(list_file.get(i), false), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
     }
 
+    public void refresh_list(){
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                linear.removeAllViews();
+                List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
+                for(int i=0; i< list_file.size(); i++){
+                    if(i==list_file.size()-1){
+                        linear.addView(Fun.getChilde(list_file.get(i), true), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        continue;
+                    }
+                    linear.addView(Fun.getChilde(list_file.get(i), false), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                }
+
+                Fun.mess("刷新成功");
+            }
+        });
+    }
     @Override
     public void Resume() {
         super.Resume();

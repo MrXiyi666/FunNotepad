@@ -67,14 +67,19 @@ public class Fun {
     }
 
 
-    public static View getChilde(String name){
+    public static View getChilde(String name, boolean di_xian){
         View view = View.inflate(App.activity, R.layout.childe_view, null);
         TextView file_name = view.findViewById(R.id.file_name);
         TextView text_data = view.findViewById(R.id.text_data);
+        View view_di = view.findViewById(R.id.view_di);
 
         String data = FunFile.读取文件(App.app_path + "data/" + name);
         file_name.setText(name);
         text_data.setText(data);
+
+        if(di_xian){
+            view_di.setVisibility(View.GONE);
+        }
 
         view.setOnClickListener(V->{
             App.file_name = name;

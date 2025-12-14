@@ -47,6 +47,8 @@ public class NetWork_Submit {
                 .build();
 
         // 4. 执行请求（后续回调逻辑不变，仅请求体调整）
+        String finalFilename = filename;
+        String finalFiledata = filedata;
         App.client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NonNull okhttp3.Call call, @NonNull java.io.IOException e) {
@@ -64,7 +66,7 @@ public class NetWork_Submit {
                     dialog.dismiss();
                     if(result.equals("yes")){
                         Fun.mess( "云端存储成功");
-                        FunFile.写入文件("data/" + App.file_name, App.text_data);
+                        FunFile.写入文件("data/" + finalFilename, finalFiledata);
                         if(tiao){
                             App.text_data = "";
                             App.file_name = "";
