@@ -6,31 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:background="@drawable/round_white_stroke_black"
+        android:background="#ffffff"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
-            android:id="@+id/title"
+        <TextView
+            android:text="系统提示"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <TextView
-                android:layout_centerInParent="true"
-                android:text="系统提示"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/return_icon"
-                android:id="@+id/return_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-        </RelativeLayout>
+            android:layout_height="50dp"/>
         <TextView
             android:id="@+id/xian1"
             android:background="#808080"
@@ -56,9 +42,5 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-    <TextView
-        android:id="@+id/di_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>
 

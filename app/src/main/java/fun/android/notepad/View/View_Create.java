@@ -1,25 +1,31 @@
 package fun.android.notepad.View;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.util.List;
 
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
+import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.R;
 import fun.android.notepad.Window.Window_New_File;
 import fun.android.notepad.Window.Window_System;
 
-public class View_Menu extends View_Main{
+public class View_Create extends View_Main{
+    private SwipeRefreshLayout swiperefresh;
     private TextView top_view;
     private LinearLayout linear_main, linear;
-    private AppCompatButton button_new_file, button_open;
+    private AppCompatButton button_new_file;
     private ImageView img_system;
-    public View_Menu(){
-        view = View.inflate(App.activity, R.layout.view_menu, null);
+    public View_Create(){
+        view = View.inflate(App.activity, R.layout.view_create, null);
         Create();
         Event();
     }
@@ -29,10 +35,10 @@ public class View_Menu extends View_Main{
         super.Create();
         top_view = view.findViewById(R.id.top_view);
         linear_main = view.findViewById(R.id.linear_main);
+        swiperefresh = view.findViewById(R.id.swiperefresh);
         linear = view.findViewById(R.id.linear);
         img_system = view.findViewById(R.id.img_system);
         button_new_file = view.findViewById(R.id.button_new_file);
-        button_open = view.findViewById(R.id.button_open);
     }
 
     @Override
@@ -47,10 +53,16 @@ public class View_Menu extends View_Main{
         button_new_file.setOnClickListener(V->{
             new Window_New_File();
         });
-        button_open.setOnClickListener(V->{
-            String[] a = {"text/plain"};
-            App.open_file_Launcher.launch(a);
+
+        swiperefresh.setOnRefreshListener(() -> {
+            swiperefresh.setRefreshing(false);
         });
+
+
+        List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
+        for(String name : list_file){
+            linear.addView(Fun.getChilde(name), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
     }
 
     @Override

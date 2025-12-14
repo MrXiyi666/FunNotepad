@@ -48,6 +48,8 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
-    implementation 'com.github.getActivity:XXPermissions:16.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
+    implementation 'com.google.code.gson:gson:2.13.2'
 }

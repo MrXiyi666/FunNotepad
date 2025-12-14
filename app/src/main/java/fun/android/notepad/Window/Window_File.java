@@ -7,22 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
-
 import java.util.Objects;
-
 import fun.android.notepad.App;
-import fun.android.notepad.Fun.Fun;
-import fun.android.notepad.Fun.FunFile;
+import fun.android.notepad.NetWork.NetWork_Submit;
 import fun.android.notepad.R;
-import fun.android.notepad.View.View_Edit;
-import fun.android.notepad.View.View_Menu;
+import fun.android.notepad.View.View_Create;
 
 public class Window_File {
     public Window_File(){
-        AlertDialog dialog = new AlertDialog.Builder(App.activity,  R.style.AlertDialog_Loading).create();
+        AlertDialog dialog = new AlertDialog.Builder(App.activity).create();
         View view = View.inflate(App.activity, R.layout.window_file_view, null);
         ImageView return_icon = view.findViewById(R.id.return_icon);
         AppCompatButton button_save = view.findViewById(R.id.button_save);
@@ -30,27 +25,18 @@ public class Window_File {
         AppCompatButton button_save_or_close = view.findViewById(R.id.button_save_or_close);
         return_icon.setOnClickListener(V-> dialog.dismiss());
         button_save.setOnClickListener(V->{
-            FunFile.保存文件();
-            dialog.dismiss();
+            new NetWork_Submit().start(App.uri + "submit.php", App.file_name, App.text_data, dialog, false);
         });
         button_close.setOnClickListener(V->{
-            App.uri = null;
-            App.Txt_Data = null;
-            App.FileName = null;
+            App.text_data = "";
+            App.file_name = "";
             App.relativeLayout.removeAllViews();
-            App.view_main = new View_Menu();
+            App.view_main = new View_Create();
             App.relativeLayout.addView(App.view_main.getView());
             dialog.dismiss();
         });
         button_save_or_close.setOnClickListener(V->{
-            FunFile.保存文件();
-            App.uri = null;
-            App.Txt_Data = null;
-            App.FileName = null;
-            App.relativeLayout.removeAllViews();
-            App.view_main = new View_Menu();
-            App.relativeLayout.addView(App.view_main.getView());
-            dialog.dismiss();
+            new NetWork_Submit().start(App.uri + "submit.php", App.file_name, App.text_data, dialog, true);
         });
         dialog.setView(view);
         dialog.setCancelable(false);

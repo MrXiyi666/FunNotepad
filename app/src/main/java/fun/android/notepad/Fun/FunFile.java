@@ -1,32 +1,24 @@
 package fun.android.notepad.Fun;
 
-import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.icu.util.Output;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 import fun.android.notepad.App;
 
 public class FunFile {
     public static boolean 写入文件(String path, String data){
         try {
-            FileOutputStream fos = new FileOutputStream(App.file_path + path, false);
+            FileOutputStream fos = new FileOutputStream(App.app_path + path, false);
             OutputStreamWriter oStreamWriter = new OutputStreamWriter(fos, App.encode);
             oStreamWriter.write(data);
             oStreamWriter.close();
             fos.close();
-            Fun.mess( "成功啦", 500);
             return true;
         } catch (Exception e) {
             Log.w("写入文件", e);
@@ -34,45 +26,11 @@ public class FunFile {
         }
     }
 
-    public static boolean 写入文件(Uri uri, String data){
-        try (OutputStream outputStream = App.activity.getContentResolver().openOutputStream(uri, "wt");
-             OutputStreamWriter writer = new OutputStreamWriter(outputStream, App.encode)){
-            writer.write(data);
-            writer.flush();
-            writer.close();
-            assert outputStream != null;
-            outputStream.flush();
-            outputStream.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean 保存文件(){
-        if(App.uri!=null){
-            if(写入文件(App.uri, App.Txt_Data)){
-                Fun.mess("保存成功");
-            }else{
-                Fun.mess("保存失败");
-            }
-        }else if(App.FileName != null){
-            if(写入文件(App.FileName, App.Txt_Data)){
-                Fun.mess("保存成功");
-            }else{
-                Fun.mess("保存失败");
-            }
-        }else{
-            Fun.mess("无法保存文件");
-        }
-        return false;
-    }
     public static String 读取文件(String path){
         StringBuilder sb = new StringBuilder();
-        File urlFile = new File(App.file_path + path);
+        File urlFile = new File(path);
         if(!urlFile.exists()){
-            return sb +"";
+            return sb.toString();
         }
         try {
             InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), App.encode);
@@ -80,45 +38,61 @@ public class FunFile {
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
+                sb.append("\n");
             }
             br.close();
             isr.close();
         } catch (Exception e) {
             Log.w("读取文件", e);
         }
-        return  sb+"";
+
+        return sb.toString();
     }
 
-    public static String ReadURI(Uri uri) {
-        try {
-            InputStream inputStream = App.activity.getContentResolver().openInputStream(uri);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, App.encode));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append("\n");
-            }
-            assert inputStream != null;
-            inputStream.close();
-            return stringBuilder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
+
+    public static boolean 创建文件夹(String path){
+        return new File(path).mkdirs();
     }
 
-    public static String GetUriName(Uri uri) {
-        String fileName = null;
-        String[] projection = {MediaStore.Files.FileColumns.DISPLAY_NAME};
-        Cursor cursor = App.activity.getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME);
-                fileName = cursor.getString(columnIndex);
-            }
-            cursor.close();
+    public static boolean 删除文件(String path){
+        return new File(path).delete();
+    }
+
+    public static boolean 删除文件夹(File folder) {
+        if (folder == null || !folder.exists()) {
+            return false;
         }
-        return fileName;
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    // 递归删除子文件夹中的内容
+                    if (file.isDirectory()) {
+                        删除文件夹(file);
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+        }
+        // 删除当前文件夹
+        return folder.delete();
+    }
+
+    public static boolean 是否存在(String path){
+        return new File(path).exists();
+    }
+
+    public static List<String> 遍历文件夹(String path){
+        File file = new File(path);
+        File[] fs = file.listFiles();
+        List<String> list = new ArrayList<>();
+        if(fs == null){
+            return list;
+        }
+        for(int i=fs.length-1; i>=0; i--){
+            list.add(fs[i].getName());
+        }
+        return list;
     }
 }

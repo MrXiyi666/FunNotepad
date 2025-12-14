@@ -3,11 +3,9 @@ package fun.android.notepad;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.View.View_Edit;
-import fun.android.notepad.View.View_Menu;
+import fun.android.notepad.View.View_Create;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,30 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         App.init(this);
-        App.open_file_Launcher = registerForActivityResult(
-                new ActivityResultContracts.OpenDocument(),
-                uri -> {
-                    if (uri == null) {
-                       return;
-                    }
-                    App.FileName = null;
-                    App.uri = uri;
-                    App.Txt_Data = FunFile.ReadURI(uri);
-                    App.FileName = FunFile.GetUriName(uri);
-                    App.relativeLayout.removeAllViews();
-                    App.view_main = new View_Edit();
-                    App.relativeLayout.addView(App.view_main.getView());
-                }
-        );
         this.getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if(App.view_main instanceof View_Edit){
-                    App.uri = null;
-                    App.Txt_Data = "";
-                    App.FileName = null;
                     App.relativeLayout.removeAllViews();
-                    App.view_main = new View_Menu();
+                    App.view_main = new View_Create();
                     App.relativeLayout.addView(App.view_main.getView());
                     return;
                 }

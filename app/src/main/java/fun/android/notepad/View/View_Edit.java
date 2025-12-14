@@ -1,16 +1,13 @@
 package fun.android.notepad.View;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.widget.AppCompatButton;
-
 import fun.android.notepad.App;
-import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.R;
 import fun.android.notepad.Window.Window_Edit;
-import fun.android.notepad.Window.Window_En_Code;
 import fun.android.notepad.Window.Window_File;
 
 public class View_Edit extends View_Main{
@@ -38,10 +35,10 @@ public class View_Edit extends View_Main{
     public void Event() {
         super.Event();
         top_view.setPadding(0,  App.Status_Bar_Height, 0, 0);
-        top_view.setText(App.FileName);
-        edit_view.setText(App.Txt_Data);
+        top_view.setText(App.file_name);
+        edit_view.setText(App.text_data);
         button_file.setOnClickListener(V->{
-            App.Txt_Data = edit_view.getText().toString();
+            App.text_data = edit_view.getText().toString();
             new Window_File();
         });
         button_edit.setOnClickListener(V->{
@@ -49,7 +46,7 @@ public class View_Edit extends View_Main{
 
         });
         button_encode.setOnClickListener(V->{
-            new Window_En_Code(edit_view);
+
         });
         button_style.setOnClickListener(V->{
 
