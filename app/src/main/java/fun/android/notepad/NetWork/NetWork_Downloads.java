@@ -2,15 +2,10 @@ package fun.android.notepad.NetWork;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
-import fun.android.notepad.View.View_Create;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -23,14 +18,6 @@ public class NetWork_Downloads {
 
 
     public void start(String url, String filename){
-        // 1. 非空校验（避免空指针）
-        if (url == null || url.isEmpty()) {
-            // 可添加错误回调
-            return;
-        }
-        if (filename == null || filename.isEmpty()) {
-            return;
-        }
         RequestBody requestBody = new FormBody.Builder()
                 .add("filename", filename)
                 .build();
@@ -49,6 +36,7 @@ public class NetWork_Downloads {
                     if (App.downloads_index <= 0) {
                         new Handler(Looper.getMainLooper()).post(() -> {
                             App.view_main.refresh_list();
+                            Fun.mess("同步失败");
                         });
                     }
                 }
@@ -60,7 +48,7 @@ public class NetWork_Downloads {
                     String result = response.body().string();
 
                     if(result.equals("no")){
-                        Fun.mess( "云端存储失败");
+                        Fun.mess( "同步失败");
                         return;
                     }
                     FunFile.写入文件("data/" + filename, result);
@@ -70,6 +58,7 @@ public class NetWork_Downloads {
                         if (App.downloads_index <= 0) {
                             new Handler(Looper.getMainLooper()).post(() -> {
                                 App.view_main.refresh_list();
+                                Fun.mess("同步完成");
                             });
                         }
                     }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -149,20 +150,35 @@ public class Fun {
 
     }
 
+    public static void setViewTheme(View view){
+        // 2. 创建形状并设置属性
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadius(DPToPX(App.activity, 20));
+        shape.setStroke(DPToPX(App.activity, 2), Color.BLACK); // 描边：2px 黑色
+        shape.setColor(Color.WHITE); // 背景色（可选）
+        view.setBackground(shape);
+    }
 
-    public static View getChilde(String name, boolean di_xian){
+    public static void setScrollViewTheme(View view){
+        // 2. 创建形状并设置属性
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadius(DPToPX(App.activity, 20));
+        shape.setStroke(DPToPX(App.activity, 2), Color.TRANSPARENT); // 描边：2px 黑色
+        shape.setColor(Color.WHITE); // 背景色（可选）
+        view.setBackground(shape);
+    }
+
+    public static View getChilde(String name){
         View view = View.inflate(App.activity, R.layout.childe_view, null);
         TextView file_name = view.findViewById(R.id.file_name);
         TextView text_data = view.findViewById(R.id.text_data);
-        View view_di = view.findViewById(R.id.view_di);
+        LinearLayout linear = view.findViewById(R.id.linear);
 
         String data = FunFile.读取文件(App.app_path + "data/" + name);
         file_name.setText(name);
         text_data.setText(data.replaceAll("[\r\n]", ""));
-
-        if(di_xian){
-            view_di.setVisibility(View.GONE);
-        }
 
         view.setOnClickListener(V->{
             App.file_name = name;
@@ -181,7 +197,7 @@ public class Fun {
                 return true;
             }
         });
-
+        setViewTheme(linear);
         return view;
     }
 

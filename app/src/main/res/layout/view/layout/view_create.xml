@@ -5,16 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:visibility="invisible"
-        android:padding="10dp"
-        android:src="@drawable/system_icon"
-        android:id="@+id/img_system"
-        android:layout_gravity="end"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
     <TextView
-
         android:id="@+id/title_view"
         android:text="记事本"
         android:gravity="center"
@@ -33,9 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ScrollView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:id="@+id/scrollView"
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -12,14 +12,15 @@ import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.View.View_Create;
+import fun.android.notepad.Window.Window_Loading;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class NetWork_Submit {
-
+    private Window_Loading window_loading;
     public NetWork_Submit() {
-
+        window_loading = new Window_Loading();
     }
 
     public void start(String url, String filename, String filedata, Dialog dialog, boolean tiao) {
@@ -34,7 +35,7 @@ public class NetWork_Submit {
         if (filedata == null) {
             filedata = "";
         }
-
+        window_loading.start();
         // 2. 构建表单请求体（form-data 格式，传输 filename + filedata 两个参数）
         RequestBody requestBody = new FormBody.Builder()
                 .add("filename", filename) // 文件名参数
@@ -58,6 +59,7 @@ public class NetWork_Submit {
                 dialog.dismiss();
                 FunFile.写入文件("data/" + App.file_name, App.text_data);
                 Fun.mess( "云端存储失败\n本地存储成功");
+                window_loading.close();
             }
 
             @Override
@@ -65,6 +67,7 @@ public class NetWork_Submit {
                 if (response.isSuccessful()) {
                     String result = response.body().string();
                     dialog.dismiss();
+                    window_loading.close();
                     if(result.equals("yes")){
                         Fun.mess( "云端存储成功");
                         FunFile.写入文件("data/" + finalFilename, finalFiledata);

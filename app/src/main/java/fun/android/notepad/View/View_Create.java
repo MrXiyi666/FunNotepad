@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -23,10 +24,10 @@ import fun.android.notepad.Window.Window_New_File;
 
 public class View_Create extends View_Main{
     private SwipeRefreshLayout swiperefresh;
+    private ScrollView scrollView;
     private TextView title_view;
     private LinearLayout linear_main, linear;
     private AppCompatButton button_new_file;
-    private ImageView img_system;
     private Window_Loading window_loading;
     public View_Create(){
         view = View.inflate(App.activity, R.layout.view_create, null);
@@ -40,8 +41,8 @@ public class View_Create extends View_Main{
         title_view = view.findViewById(R.id.title_view);
         linear_main = view.findViewById(R.id.linear_main);
         swiperefresh = view.findViewById(R.id.swiperefresh);
+        scrollView = view.findViewById(R.id.scrollView);
         linear = view.findViewById(R.id.linear);
-        img_system = view.findViewById(R.id.img_system);
         button_new_file = view.findViewById(R.id.button_new_file);
         window_loading =  new Window_Loading();
     }
@@ -49,10 +50,10 @@ public class View_Create extends View_Main{
     @Override
     public void Event() {
         super.Event();
-        title_view.setPadding(0,  App.Status_Bar_Height, 0, App.Status_Bar_Height);
-        img_system.setOnClickListener(V->{
-          //  new Window_System();
-        });
+        title_view.setPadding(0,  App.Status_Bar_Height * 2, 0, App.Status_Bar_Height);
+
+        Fun.setScrollViewTheme(scrollView);
+        scrollView.setClipToOutline(true);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Fun.DPToPX(App.activity, App.App_Width), LinearLayout.LayoutParams.MATCH_PARENT);
         linear_main.setLayoutParams(params);
 
@@ -72,10 +73,12 @@ public class View_Create extends View_Main{
         List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
         for(int i=0; i< list_file.size(); i++){
             if(i==list_file.size()-1){
-                linear.addView(Fun.getChilde(list_file.get(i), true), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                View view_childe = Fun.getChilde(list_file.get(i));
+                view_childe.setPadding(Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10));
+                linear.addView(view_childe, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 continue;
             }
-            linear.addView(Fun.getChilde(list_file.get(i), false), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            linear.addView(Fun.getChilde(list_file.get(i)), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
     }
 
@@ -89,12 +92,13 @@ public class View_Create extends View_Main{
                 List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
                 for(int i=0; i< list_file.size(); i++){
                     if(i==list_file.size()-1){
-                        linear.addView(Fun.getChilde(list_file.get(i), true), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        View view_childe = Fun.getChilde(list_file.get(i));
+                        view_childe.setPadding(Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10));
+                        linear.addView(view_childe, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         continue;
                     }
-                    linear.addView(Fun.getChilde(list_file.get(i), false), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    linear.addView(Fun.getChilde(list_file.get(i)), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 }
-                Fun.mess("刷新成功");
                 window_loading.close();
             }
         });

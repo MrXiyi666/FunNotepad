@@ -32,14 +32,14 @@ public class Window_Loading {
     }
 
     public void close(){
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 if(dialog != null){
                     dialog.dismiss();
                 }
             }
-        }, 1000);
+        });
 
     }
 }
