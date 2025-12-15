@@ -90,8 +90,11 @@ public class FunFile {
         if(fs == null){
             return list;
         }
+        for(File files : fs){
+            list.add(files.getName());
+        }
         for(int i=fs.length-1; i>=0; i--){
-            list.add(fs[i].getName());
+            //list.add(fs[i].getName());
         }
         return list;
     }

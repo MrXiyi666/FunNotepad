@@ -5,11 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.Window;
-
 import androidx.appcompat.widget.AppCompatButton;
-
 import java.util.Objects;
-
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.NetWork.NetWork_Delete;
@@ -30,6 +27,7 @@ public class Window_Delete {
                     new NetWork_Delete().start(App.uri + "delete.php", filename, dialog);
                 });
 
+                Fun.setButtonTheme(button_ok);
 
                 dialog.setCancelable(true);
                 dialog.setContentView(view);
