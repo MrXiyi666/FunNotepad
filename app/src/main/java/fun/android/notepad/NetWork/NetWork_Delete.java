@@ -1,31 +1,28 @@
 package fun.android.notepad.NetWork;
 
+import android.app.Dialog;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import fun.android.notepad.App;
 import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
-import fun.android.notepad.View.View_Create;
+import fun.android.notepad.Window.Window_Loading;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class NetWork_Downloads {
-
-    public NetWork_Downloads(){
-
+public class NetWork_Delete {
+    private Window_Loading window_loading;
+    public NetWork_Delete(){
+        window_loading = new Window_Loading();
     }
 
-
-    public void start(String url, String filename){
-        // 1. 非空校验（避免空指针）
+    public void start(String url, String filename, Dialog dialog){
+        window_loading.start();
         if (url == null || url.isEmpty()) {
-            // 可添加错误回调
             return;
         }
         if (filename == null || filename.isEmpty()) {
@@ -43,38 +40,31 @@ public class NetWork_Downloads {
             public void onFailure(@NonNull okhttp3.Call call, @NonNull java.io.IOException e) {
                 // 失败处理（如回调提示）
                 e.printStackTrace();
-                // 加锁修改计数
-                synchronized (App.class) {
-                    App.downloads_index = App.downloads_index - 1;
-                    if (App.downloads_index <= 0) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            App.view_main.refresh_list();
-                        });
-                    }
-                }
+                Fun.mess( "删除失败");
+                dialog.dismiss();
+                window_loading.close();
             }
 
             @Override
             public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws java.io.IOException {
                 if (response.isSuccessful()) {
                     String result = response.body().string();
-
+                    dialog.dismiss();
+                    window_loading.close();
                     if(result.equals("no")){
-                        Fun.mess( "云端存储失败");
+                        Fun.mess( "删除失败");
                         return;
                     }
-                    FunFile.写入文件("data/" + filename, result);
-                    // 加锁修改计数
-                    synchronized (App.class) {
-                        App.downloads_index = App.downloads_index - 1;
-                        if (App.downloads_index <= 0) {
-                            new Handler(Looper.getMainLooper()).post(() -> {
-                                App.view_main.refresh_list();
-                            });
-                        }
-                    }
+
+                    FunFile.删除文件(App.app_path + "data/" + filename);
+                    Fun.mess( "删除成功");
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        App.view_main.refresh_list();
+                    });
+
                 }
             }
         });
+
     }
 }

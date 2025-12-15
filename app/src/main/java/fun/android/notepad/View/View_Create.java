@@ -18,15 +18,16 @@ import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.NetWork.NetWork_FileList;
 import fun.android.notepad.R;
+import fun.android.notepad.Window.Window_Loading;
 import fun.android.notepad.Window.Window_New_File;
-import fun.android.notepad.Window.Window_System;
 
 public class View_Create extends View_Main{
     private SwipeRefreshLayout swiperefresh;
-    private TextView top_view;
+    private TextView title_view;
     private LinearLayout linear_main, linear;
     private AppCompatButton button_new_file;
     private ImageView img_system;
+    private Window_Loading window_loading;
     public View_Create(){
         view = View.inflate(App.activity, R.layout.view_create, null);
         Create();
@@ -36,29 +37,33 @@ public class View_Create extends View_Main{
     @Override
     public void Create() {
         super.Create();
-        top_view = view.findViewById(R.id.top_view);
+        title_view = view.findViewById(R.id.title_view);
         linear_main = view.findViewById(R.id.linear_main);
         swiperefresh = view.findViewById(R.id.swiperefresh);
         linear = view.findViewById(R.id.linear);
         img_system = view.findViewById(R.id.img_system);
         button_new_file = view.findViewById(R.id.button_new_file);
+        window_loading =  new Window_Loading();
     }
 
     @Override
     public void Event() {
         super.Event();
-        top_view.setPadding(0,  App.Status_Bar_Height, 0, 0);
+        title_view.setPadding(0,  App.Status_Bar_Height, 0, App.Status_Bar_Height);
         img_system.setOnClickListener(V->{
           //  new Window_System();
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Fun.DPToPX(App.activity, App.App_Width), LinearLayout.LayoutParams.MATCH_PARENT);
         linear_main.setLayoutParams(params);
+
+        Fun.setButtonTheme(button_new_file);
         button_new_file.setOnClickListener(V->{
             new Window_New_File();
         });
 
         swiperefresh.setOnRefreshListener(() -> {
             swiperefresh.setRefreshing(false);
+            window_loading.start();
             new NetWork_FileList().start(App.uri + "file_list.php");
 
         });
@@ -74,7 +79,9 @@ public class View_Create extends View_Main{
         }
     }
 
+    @Override
     public void refresh_list(){
+        super.refresh_list();
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -87,8 +94,8 @@ public class View_Create extends View_Main{
                     }
                     linear.addView(Fun.getChilde(list_file.get(i), false), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 }
-
                 Fun.mess("刷新成功");
+                window_loading.close();
             }
         });
     }

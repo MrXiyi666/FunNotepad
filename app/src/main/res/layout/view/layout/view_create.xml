@@ -5,11 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/top_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <ImageView
+        android:visibility="invisible"
         android:padding="10dp"
         android:src="@drawable/system_icon"
         android:id="@+id/img_system"
@@ -17,8 +14,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"/>
     <TextView
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
+
         android:id="@+id/title_view"
         android:text="记事本"
         android:gravity="center"
@@ -29,8 +25,6 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_new_file"
         android:layout_margin="10dp"
-        android:stateListAnimator="@null"
-        android:background="@drawable/button_event_back_tran"
         android:text="新建文档"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -1,6 +1,7 @@
 package fun.android.notepad.NetWork;
 
 
+import android.app.Dialog;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -21,7 +22,7 @@ public class NetWork_Submit {
 
     }
 
-    public void start(String url, String filename, String filedata, AlertDialog dialog, boolean tiao) {
+    public void start(String url, String filename, String filedata, Dialog dialog, boolean tiao) {
         // 1. 非空校验（避免空指针）
         if (url == null || url.isEmpty()) {
             // 可添加错误回调

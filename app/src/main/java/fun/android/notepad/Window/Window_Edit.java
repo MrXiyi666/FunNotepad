@@ -1,10 +1,12 @@
 package fun.android.notepad.Window;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,13 +15,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import java.util.Objects;
 import fun.android.notepad.App;
+import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.R;
 
 public class Window_Edit {
 
     public Window_Edit(EditText edit_view){
-        AlertDialog dialog = new AlertDialog.Builder(App.activity,  R.style.AlertDialog_Loading).create();
+        Dialog dialog = new Dialog(App.activity);
         View view = View.inflate(App.activity, R.layout.window_edit, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         ImageView return_icon = view.findViewById(R.id.return_icon);
         AppCompatButton button_read_only = view.findViewById(R.id.button_read_only);
         AppCompatButton button_left = view.findViewById(R.id.button_left);
@@ -88,13 +92,20 @@ public class Window_Edit {
             text_view.setText(String.valueOf(App.text_size));
             edit_view.setTextSize(App.text_size);
         });
-        dialog.setView(view);
+
+
+        Fun.setButtonTheme(button_read_only);
+        Fun.setButtonTheme(button_left);
+        Fun.setButtonTheme(button_center);
+        Fun.setButtonTheme(button_end);
+        Fun.setButtonTheme(button_v_center);
+        Fun.setButtonTheme(button_h_center);
+        Fun.setButtonTheme(button_add);
+        Fun.setButtonTheme(button_minus);
+
         dialog.setCancelable(false);
-        Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.setContentView(view);
+        Fun.setWindowTheme(Objects.requireNonNull(dialog.getWindow()));
         dialog.show();
     }
 }

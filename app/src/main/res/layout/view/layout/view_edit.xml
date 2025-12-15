@@ -12,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
-        android:padding="2dp"
+        android:padding="5dp"
+        android:lineSpacingExtra="5dp"
         android:textSize="15sp"
         android:background="@drawable/edit_rect_back"
         android:layout_below="@id/top_view"
         android:layout_above="@id/linear_menu_view"
-        android:gravity="start"
+        android:gravity="start|top"
         android:id="@+id/edit_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

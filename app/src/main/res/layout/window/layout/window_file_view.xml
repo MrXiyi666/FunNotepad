@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:layout_margin="10dp"
-        android:background="@drawable/round_white_stroke_black"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,7 +48,6 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/button_save"
                     android:stateListAnimator="@null"
-                    android:background="@drawable/button_event_back_tran"
                     android:text="保存"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -60,7 +57,6 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/button_close"
                     android:stateListAnimator="@null"
-                    android:background="@drawable/button_event_back_tran"
                     android:text="关闭"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -71,7 +67,6 @@
                     android:layout_marginBottom="10dp"
                     android:id="@+id/button_save_or_close"
                     android:stateListAnimator="@null"
-                    android:background="@drawable/button_event_back_tran"
                     android:text="关闭并保存"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

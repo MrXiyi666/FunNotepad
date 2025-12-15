@@ -25,6 +25,9 @@ public class View_Network extends View_Main{
         button_ok = view.findViewById(R.id.button_ok);
         edit_dizhi = view.findViewById(R.id.edit_dizhi);
 
+
+        Fun.setEditTheme(edit_dizhi);
+        Fun.setButtonTheme(button_ok);
         button_ok.setOnClickListener(V->{
             App.uri = edit_dizhi.getText().toString();
             if(!App.uri.isEmpty() ){

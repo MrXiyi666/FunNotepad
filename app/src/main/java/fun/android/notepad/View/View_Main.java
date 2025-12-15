@@ -20,6 +20,10 @@ public class View_Main {
         return view;
     }
 
+    public void refresh_list(){
+
+    }
+
     public void Resume(){
 
     }
