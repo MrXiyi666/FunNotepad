@@ -160,13 +160,21 @@ public class Fun {
         view.setBackground(shape);
     }
 
-    public static void setScrollViewTheme(View view){
-        // 2. 创建形状并设置属性
+    public static void setChildeTheme(View view){
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
         shape.setCornerRadius(DPToPX(App.activity, 20));
-        shape.setStroke(DPToPX(App.activity, 2), Color.TRANSPARENT); // 描边：2px 黑色
-        shape.setColor(Color.WHITE); // 背景色（可选）
+        shape.setStroke(DPToPX(App.activity, 2), Color.parseColor("#f2f3f7"));
+        shape.setColor(Color.WHITE);
+        view.setBackground(shape);
+    }
+
+    public static void setScrollViewTheme(View view){
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadius(DPToPX(App.activity, 20));
+        shape.setStroke(DPToPX(App.activity, 2), Color.TRANSPARENT);
+        shape.setColor(Color.WHITE);
         view.setBackground(shape);
     }
 
@@ -197,7 +205,7 @@ public class Fun {
                 return true;
             }
         });
-        setViewTheme(linear);
+        setChildeTheme(linear);
         return view;
     }
 
