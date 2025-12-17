@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+
+import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.View.View_Edit;
 import fun.android.notepad.View.View_Create;
 
@@ -18,9 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 if(App.view_main instanceof View_Edit){
-                    App.relativeLayout.removeAllViews();
-                    App.view_main = new View_Create();
-                    App.relativeLayout.addView(App.view_main.getView());
+                    Fun.addView(new View_Create());
                     return;
                 }
                 Intent intent = new Intent(Intent.ACTION_MAIN);

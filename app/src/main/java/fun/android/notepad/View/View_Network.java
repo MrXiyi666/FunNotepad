@@ -32,9 +32,7 @@ public class View_Network extends View_Main{
             App.uri = edit_dizhi.getText().toString();
             if(!App.uri.isEmpty() ){
                 FunFile.写入文件("system/url", App.uri);
-                App.relativeLayout.removeAllViews();
-                App.view_main = new View_Create();
-                App.relativeLayout.addView(App.view_main.getView(),new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                Fun.addView(new View_Create());
                 return;
             }
             Fun.mess("不能为空");

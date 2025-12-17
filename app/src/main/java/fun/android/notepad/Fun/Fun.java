@@ -1,5 +1,8 @@
 package fun.android.notepad.Fun;
 
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
@@ -11,10 +14,12 @@ import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -22,6 +27,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import fun.android.notepad.App;
 import fun.android.notepad.R;
 import fun.android.notepad.View.View_Edit;
+import fun.android.notepad.View.View_Main;
 import fun.android.notepad.Window.Window_Delete;
 
 import java.util.Objects;
@@ -105,7 +111,7 @@ public class Fun {
         gradientDrawable.setStroke(strokeWidth, strokeColor);
         gradientDrawable.setColor(Color.parseColor("#ffffff")); // 浅蓝背景
         editText.setBackground(gradientDrawable);
-        editText.setPadding(DPToPX(App.activity, 10), DPToPX(App.activity, 5), DPToPX(App.activity, 10), DPToPX(App.activity, 5));
+        editText.setPadding(DPToPX(App.activity, 15), DPToPX(App.activity, 10), DPToPX(App.activity, 15), DPToPX(App.activity, 10));
     }
 
 
@@ -150,16 +156,6 @@ public class Fun {
 
     }
 
-    public static void setViewTheme(View view){
-        // 2. 创建形状并设置属性
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(DPToPX(App.activity, 20));
-        shape.setStroke(DPToPX(App.activity, 2), Color.BLACK); // 描边：2px 黑色
-        shape.setColor(Color.WHITE); // 背景色（可选）
-        view.setBackground(shape);
-    }
-
     public static void setChildeTheme(View view){
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
@@ -192,9 +188,8 @@ public class Fun {
             App.file_name = name;
             App.text_data = FunFile.读取文件(App.app_path + "data/" + name);
             if(!App.file_name.isEmpty()){
-                App.relativeLayout.removeAllViews();
-                App.view_main = new View_Edit();
-                App.relativeLayout.addView(App.view_main.getView());
+
+                Fun.addView(new View_Edit());
             }
         });
 
@@ -207,6 +202,28 @@ public class Fun {
         });
         setChildeTheme(linear);
         return view;
+    }
+
+    public static void addView(View_Main view_main){
+        View oldView = App.relativeLayout.getChildCount() > 0 ? App.relativeLayout.getChildAt(0) : null;
+        if (oldView != null) {
+            oldView.animate().alpha(0f).setDuration(300).withEndAction(() -> {
+                App.relativeLayout.removeView(oldView);
+                App.view_main = view_main;
+                View newView = App.view_main.getView();
+                newView.setAlpha(0f);
+                App.relativeLayout.addView(newView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                newView.animate().alpha(1f).setDuration(100).start();
+            }).start();
+        } else {
+            App.view_main = view_main;
+            View newView = App.view_main.getView();
+            newView.setAlpha(0f);
+            App.relativeLayout.addView(newView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            newView.animate().alpha(1f).setDuration(100).start();
+        }
+
+
     }
 
 }

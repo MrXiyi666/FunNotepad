@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import java.util.concurrent.TimeUnit;
 
+import fun.android.notepad.Fun.Fun;
 import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.View.View_Create;
 import fun.android.notepad.View.View_Main;
@@ -87,11 +88,10 @@ public class App extends Application {
         relativeLayout = activity.findViewById(R.id.main);
 
         if(FunFile.是否存在(App.app_path + "system/url")){
-            view_main = new View_Create();
+            Fun.addView(new View_Create());
         }else{
-            view_main = new View_Network();
+            Fun.addView(new View_Network());
         }
 
-        relativeLayout.addView(view_main.getView(), new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 }
