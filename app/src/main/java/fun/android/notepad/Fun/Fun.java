@@ -9,6 +9,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
@@ -116,6 +117,8 @@ public class Fun {
 
 
     public static void setButtonTheme(AppCompatButton button) {
+        button.setStateListAnimator(null);
+
         // ==================== 背景样式配置（原有逻辑） ====================
         // 1. 配置默认状态的Drawable（白色背景、黑色描边、圆角）
         GradientDrawable normalDrawable = new GradientDrawable();
@@ -179,12 +182,17 @@ public class Fun {
         TextView file_name = view.findViewById(R.id.file_name);
         TextView text_data = view.findViewById(R.id.text_data);
         LinearLayout linear = view.findViewById(R.id.linear);
+        AppCompatButton button_open = view.findViewById(R.id.button_open);
+        AppCompatButton button_delete = view.findViewById(R.id.button_delete);
+        setChildeTheme(linear);
+        setButtonTheme(button_open);
+        setButtonTheme(button_delete);
 
         String data = FunFile.读取文件(App.app_path + "data/" + name);
         file_name.setText(name);
         text_data.setText(data.replaceAll("[\r\n]", ""));
 
-        view.setOnClickListener(V->{
+        button_open.setOnClickListener(V->{
             App.file_name = name;
             App.text_data = FunFile.读取文件(App.app_path + "data/" + name);
             if(!App.file_name.isEmpty()){
@@ -193,14 +201,10 @@ public class Fun {
             }
         });
 
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                new Window_Delete(name);
-                return true;
-            }
+        button_delete.setOnClickListener(V->{
+            new Window_Delete(name);
         });
-        setChildeTheme(linear);
+
         return view;
     }
 
