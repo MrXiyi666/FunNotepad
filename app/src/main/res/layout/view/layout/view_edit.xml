@@ -3,20 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/top_view"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textSize="15sp"
-        android:textColor="@color/black"
+    <RelativeLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp">
+        <TextView
+            android:textStyle="bold"
+            android:text="名字"
+            android:id="@+id/top_view"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/return_icon"
+            android:id="@+id/return_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
     <EditText
         android:padding="5dp"
         android:lineSpacingExtra="5dp"
         android:textSize="15sp"
         android:background="@drawable/edit_rect_back"
-        android:layout_below="@id/top_view"
+        android:layout_below="@id/title"
         android:layout_above="@id/linear_menu_view"
         android:gravity="start|top"
         android:id="@+id/edit_view"
