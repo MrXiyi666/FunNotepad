@@ -56,7 +56,7 @@ public class View_Edit extends View_Main{
 
         top_view.setText(App.file_name);
         edit_view.setText(App.text_data);
-        edit_view.setGravity(Gravity.CENTER_VERTICAL);
+        edit_view.setGravity(Gravity.CENTER_HORIZONTAL);
 
         return_icon.setOnClickListener(V->{
             Fun.addView(new View_Create());
