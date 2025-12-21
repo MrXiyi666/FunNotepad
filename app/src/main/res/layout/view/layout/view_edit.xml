@@ -28,13 +28,15 @@
             android:layout_height="30dp"/>
     </RelativeLayout>
     <EditText
-        android:padding="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
         android:lineSpacingExtra="5dp"
+        android:letterSpacing="0.1"
         android:textSize="15sp"
         android:background="@drawable/edit_rect_back"
         android:layout_below="@id/title"
         android:layout_above="@id/linear_menu_view"
-        android:gravity="start|top"
         android:id="@+id/edit_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
