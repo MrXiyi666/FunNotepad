@@ -41,6 +41,7 @@ public class App extends Application {
     public static int downloads_index=0;
     public static String encode = "utf8";
     public static int text_size = 15;
+    public static int scrollView_Y=0;
     @Override
     public void onCreate() {
         super.onCreate();

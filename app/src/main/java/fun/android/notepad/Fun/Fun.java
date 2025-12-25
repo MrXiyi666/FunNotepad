@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -177,7 +179,7 @@ public class Fun {
         view.setBackground(shape);
     }
 
-    public static View getChilde(String name){
+    public static View getChilde(String name, ScrollView scollView){
         View view = View.inflate(App.activity, R.layout.childe_view, null);
         TextView file_name = view.findViewById(R.id.file_name);
         TextView text_data = view.findViewById(R.id.text_data);
@@ -196,7 +198,7 @@ public class Fun {
             App.file_name = name;
             App.text_data = FunFile.读取文件(App.app_path + "data/" + name);
             if(!App.file_name.isEmpty()){
-
+                App.scrollView_Y = scollView.getScrollY();
                 Fun.addView(new View_Edit());
             }
         });

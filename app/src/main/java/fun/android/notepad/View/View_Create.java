@@ -2,6 +2,7 @@ package fun.android.notepad.View;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,6 +55,11 @@ public class View_Create extends View_Main{
 
         Fun.setScrollViewTheme(scrollView);
         scrollView.setClipToOutline(true);
+        scrollView.post(()->{
+            scrollView.scrollTo(0, App.scrollView_Y);
+        });
+
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Fun.DPToPX(App.activity, App.App_Width), LinearLayout.LayoutParams.MATCH_PARENT);
         linear_main.setLayoutParams(params);
 
@@ -73,12 +79,12 @@ public class View_Create extends View_Main{
         List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
         for(int i=0; i< list_file.size(); i++){
             if(i==list_file.size()-1){
-                View view_childe = Fun.getChilde(list_file.get(i));
+                View view_childe = Fun.getChilde(list_file.get(i), scrollView);
                 view_childe.setPadding(Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10));
                 linear.addView(view_childe, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 continue;
             }
-            linear.addView(Fun.getChilde(list_file.get(i)), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            linear.addView(Fun.getChilde(list_file.get(i), scrollView), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
     }
 
@@ -92,12 +98,12 @@ public class View_Create extends View_Main{
                 List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
                 for(int i=0; i< list_file.size(); i++){
                     if(i==list_file.size()-1){
-                        View view_childe = Fun.getChilde(list_file.get(i));
+                        View view_childe = Fun.getChilde(list_file.get(i), scrollView);
                         view_childe.setPadding(Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10), Fun.DPToPX(App.activity, 10));
                         linear.addView(view_childe, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         continue;
                     }
-                    linear.addView(Fun.getChilde(list_file.get(i)), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    linear.addView(Fun.getChilde(list_file.get(i), scrollView), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 }
                 window_loading.close();
             }
