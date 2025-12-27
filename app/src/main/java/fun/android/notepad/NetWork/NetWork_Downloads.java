@@ -46,7 +46,7 @@ public class NetWork_Downloads {
             public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws java.io.IOException {
                 if (response.isSuccessful()) {
                     String result = response.body().string();
-
+                    response.close();
                     if(result.equals("no")){
                         Fun.mess( "同步失败");
                         return;

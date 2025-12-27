@@ -71,8 +71,7 @@ public class View_Create extends View_Main{
         swiperefresh.setOnRefreshListener(() -> {
             swiperefresh.setRefreshing(false);
             window_loading.start();
-            new NetWork_FileList().start(App.uri + "file_list.php");
-
+            new NetWork_FileList().start(App.uri + "filelist.php");
         });
 
 
@@ -94,6 +93,7 @@ public class View_Create extends View_Main{
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                window_loading.close();
                 linear.removeAllViews();
                 List<String> list_file = FunFile.遍历文件夹(App.app_path + "data");
                 for(int i=0; i< list_file.size(); i++){
@@ -105,10 +105,19 @@ public class View_Create extends View_Main{
                     }
                     linear.addView(Fun.getChilde(list_file.get(i), scrollView), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 }
-                window_loading.close();
+
             }
         });
     }
+
+    @Override
+    public void window_loadings_clear() {
+        super.window_loadings_clear();
+        new Handler(Looper.getMainLooper()).post(()->{
+            window_loading.close();
+        });
+    }
+
     @Override
     public void Resume() {
         super.Resume();

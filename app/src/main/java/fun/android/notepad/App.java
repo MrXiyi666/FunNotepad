@@ -20,6 +20,7 @@ import fun.android.notepad.Fun.FunFile;
 import fun.android.notepad.View.View_Create;
 import fun.android.notepad.View.View_Main;
 import fun.android.notepad.View.View_Network;
+import okhttp3.ConnectionPool;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 
@@ -75,10 +76,13 @@ public class App extends Application {
         dispatcher.setMaxRequestsPerHost(20);   // 单域名并发：20 条，既不被 CDN 拉黑又能跑满带宽
 
         client = new OkHttpClient().newBuilder()
+                // 连接池：空闲超时 60 秒（小于服务端 keepalive_timeout，避免复用失效连接）
+                .connectionPool(new ConnectionPool(5, 60, TimeUnit.SECONDS))
                 .connectTimeout(30, TimeUnit.SECONDS)  // TCP 握手 30s 足够
                 .writeTimeout(60, TimeUnit.SECONDS)    // 上传/发送 60s
                 .readTimeout(120, TimeUnit.SECONDS)    // 下载 2min 没数据再抛异常
                 .dispatcher(dispatcher)
+                .retryOnConnectionFailure(true) // 开启连接失败重试
                 .build();
 
         Window window = App.activity.getWindow();

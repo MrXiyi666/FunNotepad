@@ -1,4 +1,7 @@
 <?php
+
+    $filename = $_POST['filename'] ?? '';
+
     $files = scandir("./data/");
     $return_list=[];
 

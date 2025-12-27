@@ -24,6 +24,9 @@ public class View_Main {
 
     }
 
+    public void window_loadings_clear(){
+
+    }
     public void Resume(){
 
     }
